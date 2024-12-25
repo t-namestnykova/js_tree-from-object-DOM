@@ -18,23 +18,24 @@ const food = {
   },
 };
 
-const tree = document.querySelector('#tree');
+const tree = document.querySelector('#tree'); // Отримуємо елемент, до якого буде додано дерево
 
 function createTree(element, data) {
-  const list = document.createElement('ul');
+  if (!data || Object.keys(data).length === 0) return; // Перевірка на пустий об'єкт
+
+  const list = document.createElement('ul'); // Створюємо список
 
   Object.keys(data).forEach((key) => {
-    const li = document.createElement('li');
-
-    li.textContent = key;
-    list.appendChild(li);
+    const li = document.createElement('li'); // Створюємо елемент списку
+    li.textContent = key; // Додаємо назву ключа як текст
+    list.appendChild(li); // Додаємо елемент до списку
 
     if (Object.keys(data[key]).length > 0) {
-      createTree(li, data[key]);
+      createTree(li, data[key]); // Рекурсія для вкладених об'єктів
     }
   });
 
-  element.appendChild(list);
+  element.appendChild(list); // Додаємо готовий список до переданого елемента
 }
 
-createTree(tree, food);
+createTree(tree, food); // Викликаємо функцію для створення дерева
